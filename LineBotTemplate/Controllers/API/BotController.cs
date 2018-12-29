@@ -1,4 +1,5 @@
-﻿using System;
+﻿using isRock.LineBot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -7,33 +8,33 @@ using System.Web.Http;
 
 namespace LineBotTemplate.Controllers.API
 {
-    public class BotController : ApiController
+    public class BotController : LineWebHookControllerBase
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        /// <summary>
+        /// 機器人服務窗口
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("~/api/bot/start")]
+        public IHttpActionResult Start()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                //取得Line Event
+                var LineEvent = this.ReceivedMessage.events.FirstOrDefault();
+                //配合Line verify 
+                if (LineEvent.replyToken == "00000000000000000000000000000000") return Ok();
+
+                this.ReplyMessage(LineEvent.replyToken, "");
+
+
+            }
+            catch (Exception ex)
+            {
+                Ok();
+            }
+            return Ok();
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
     }
 }
