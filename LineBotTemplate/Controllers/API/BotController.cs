@@ -25,7 +25,17 @@ namespace LineBotTemplate.Controllers.API
                 //配合Line verify 
                 if (LineEvent.replyToken == "00000000000000000000000000000000") return Ok();
 
-                this.ReplyMessage(LineEvent.replyToken, "");
+                if (LineEvent.message.text == "liff")
+                {
+                    var LiffURL = "https://testliff.azurewebsites.net/default.html"; //測試用位置
+                    //var LiffURL = "https://sweetassistant.azurewebsites.net/liff";
+
+                    //建立LiffApp
+                    //var Liff = isRock.LIFF.Utility.AddLiffApp(
+                    //    ChannelAccessToken, new Uri(LiffURL), isRock.LIFF.ViewType.tall);
+
+                    this.ReplyMessage(LineEvent.replyToken, " Liff App 已新增 : " + "line://app/1570222654-8xXLM1OL?id=123");
+                }
 
 
             }

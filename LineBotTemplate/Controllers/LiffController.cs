@@ -8,8 +8,13 @@ namespace LineBotTemplate.Controllers
 {
     public class LiffController : Controller
     {
-        // GET: Liff
+        [Route("~/Liff")]
         public ActionResult Index()
+        {
+            return View();
+        }
+        [Route("~/Liff/Demo")]
+        public ActionResult Demo()
         {
             return View();
         }
